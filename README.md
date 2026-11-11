@@ -10,7 +10,7 @@ Standalone OpenShift Console plugin that builds **sysprepped** Windows disks for
 - **Route:** `/community-tools/compute/windows-builder` (Community Tools → **Compute**)
 - **Git branch:** `main` / optional `ocp-4.22` when PF/API differ
 
-This is **not** the Community Tools catalog; hubs live in [oct-storefront](https://github.com/OOsemka/oct-storefront). Open from **Community Tools → Compute** after the storefront and this plugin are enabled.
+This is **not** the Community Tools catalog; hubs live in [oct-storefront](https://github.com/openshift-community-tools/oct-storefront). Open from **Community Tools → Compute** after the storefront and this plugin are enabled.
 
 Validated on OpenShift **4.22** (PatternFly 6). Requires **OpenShift Virtualization** (KubeVirt + CDI). No Tekton, no Argo CD, no extra operators.
 

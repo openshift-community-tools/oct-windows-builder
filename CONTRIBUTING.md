@@ -46,7 +46,7 @@ oc set image deploy/oct-windows-builder -n oct-windows-builder plugin=quay.io/<y
 **Otherwise** deploy the YAML in this repo with your image:
 
 ```bash
-sed 's|quay.io/cjanisze/oct-windows-builder:[^ ]*|quay.io/<you>/oct-windows-builder:dev|' deploy/install.yaml | oc apply -f -
+sed 's|quay.io/openshift-community-tools/oct-windows-builder:[^ ]*|quay.io/<you>/oct-windows-builder:dev|' deploy/install.yaml | oc apply -f -
 ```
 
 and enable the plugin in the console (skip if the storefront already enabled it):

@@ -122,7 +122,7 @@ spec:
     spec:
       containers:
         - name: plugin
-          image: quay.io/cjanisze/oct-windows-builder:1.0.19-ocp4.22
+          image: quay.io/openshift-community-tools/oct-windows-builder:1.0.19-ocp4.22
           ports:
             - containerPort: 9443
               protocol: TCP
@@ -188,7 +188,7 @@ spec:
       serviceAccountName: windows-builder
       containers:
         - name: windows-builder
-          image: quay.io/cjanisze/oct-windows-builder-builder:1.0.19-ocp4.22
+          image: quay.io/openshift-community-tools/oct-windows-builder-builder:1.0.19-ocp4.22
           env:
             - name: POD_NAMESPACE
               valueFrom:

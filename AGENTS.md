@@ -127,7 +127,7 @@ The deploy bundle (`catalog/deploy/oct-windows-builder.yaml` in the storefront) 
 
 | Image | Current version | Quay repo |
 | --- | --- | --- |
-| `oct-windows-builder-builder` | **1.0.19** | `quay.io/cjanisze/oct-windows-builder-builder` |
+| `oct-windows-builder-builder` | **1.0.19** | `quay.io/openshift-community-tools/oct-windows-builder-builder` |
 
 The builder version should match the plugin version. After rebuilding either image, update the deploy YAML in the storefront, rebuild the storefront image, and run `scripts/validate-catalog.sh`. See `oct-release-checklist.mdc`.
 
