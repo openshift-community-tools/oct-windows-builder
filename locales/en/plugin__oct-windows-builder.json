@@ -92,5 +92,18 @@
   "Windows edition": "Windows edition",
   "Standard consumer ISO edition. Pro is recommended for general use.": "Standard consumer ISO edition. Pro is recommended for general use.",
   "Paste the consumer ISO URL. The cluster must be able to pull this URL over HTTPS.": "Paste the consumer ISO URL. The cluster must be able to pull this URL over HTTPS.",
-  "Microsoft Software Download": "Microsoft Software Download"
+  "Microsoft Software Download": "Microsoft Software Download",
+  "VM state now uses {{sc}}. New Windows VMs can start.": "VM state now uses {{sc}}. New Windows VMs can start.",
+  "A VM that was already stuck: stop it, delete its persistent-state-for-<vm> PVC, and start it again.": "A VM that was already stuck: stop it, delete its persistent-state-for-<vm> PVC, and start it again.",
+  "Windows 11 VMs will not start: VM state storage uses XFS ({{sc}})": "Windows 11 VMs will not start: VM state storage uses XFS ({{sc}})",
+  "OpenShift Virtualization stores each VM's TPM and EFI state on {{sc}} (HyperConverged spec.storage.vmStateStorageClass).": "OpenShift Virtualization stores each VM's TPM and EFI state on {{sc}} (HyperConverged spec.storage.vmStateStorageClass).",
+  "OpenShift Virtualization stores each VM's TPM and EFI state on the default StorageClass, {{sc}}.": "OpenShift Virtualization stores each VM's TPM and EFI state on the default StorageClass, {{sc}}.",
+  "That volume is about 10 MiB and XFS cannot be formatted that small, so Windows 11 (and other templates with a persistent TPM or EFI) stay in Scheduling.": "That volume is about 10 MiB and XFS cannot be formatted that small, so Windows 11 (and other templates with a persistent TPM or EFI) stay in Scheduling.",
+  "Use {{fix}} for VM state instead. This changes a cluster-wide OpenShift Virtualization setting and needs permission to edit the HyperConverged resource.": "Use {{fix}} for VM state instead. This changes a cluster-wide OpenShift Virtualization setting and needs permission to edit the HyperConverged resource.",
+  "Use {{fix}} for VM state": "Use {{fix}} for VM state",
+  "Or as a cluster admin:": "Or as a cluster admin:",
+  "Copy": "Copy",
+  "Copied": "Copied",
+  "No StorageClass with ext4 was found. Ask a cluster admin to set HyperConverged spec.storage.vmStateStorageClass to a class that formats volumes with ext4, or uses block storage.": "No StorageClass with ext4 was found. Ask a cluster admin to set HyperConverged spec.storage.vmStateStorageClass to a class that formats volumes with ext4, or uses block storage.",
+  "Could not change the VM state storage class": "Could not change the VM state storage class"
 }

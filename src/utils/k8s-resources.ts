@@ -1,4 +1,4 @@
-import { K8sModel } from '@openshift-console/dynamic-plugin-sdk';
+import { K8sModel, K8sResourceCommon } from '@openshift-console/dynamic-plugin-sdk';
 
 export const DataVolumeModel: K8sModel = {
   apiVersion: 'v1beta1',
@@ -53,6 +53,22 @@ export const StorageClassModel: K8sModel = {
   labelPlural: 'StorageClasses',
   plural: 'storageclasses',
   namespaced: false,
+};
+
+/** OpenShift Virtualization's HyperConverged CR (holds the VM state storage class). */
+export const HyperConvergedModel: K8sModel = {
+  apiVersion: 'v1beta1',
+  apiGroup: 'hco.kubevirt.io',
+  kind: 'HyperConverged',
+  abbr: 'HCO',
+  label: 'HyperConverged',
+  labelPlural: 'HyperConvergeds',
+  plural: 'hyperconvergeds',
+  namespaced: true,
+};
+
+export type HyperConvergedKind = K8sResourceCommon & {
+  spec?: { storage?: { vmStateStorageClass?: string } };
 };
 
 /** CNV golden-image namespace — product identity, not a lab name. */
@@ -110,6 +126,8 @@ export type StorageClassKind = {
     name: string;
     annotations?: Record<string, string>;
   };
+  provisioner?: string;
+  parameters?: Record<string, string>;
 };
 
 export type TemplateParameter = {

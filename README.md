@@ -33,6 +33,12 @@ Validated on OpenShift **4.22** (PatternFly 6). Requires **OpenShift Virtualizat
 - **VMI watcher / `sawRunning` guard** — `waitVMI` polls up to 4h; `sawRunning` must be true before treating Succeeded/NotFound as exit (prevents stale-VMI races). `evaluateGuestExit` requires qemu-ga connection.
 - **Golden DV cloning** — after sysprep, clone install disk to `openshift-virtualization-os-images`; create/update DataSource and optional Template.
 
+## Pre-flight: VM state storage
+
+Windows 11 and other templates with a persistent TPM or EFI get a small (about 10 MiB) `persistent-state-for-<vm>` PVC. OpenShift Virtualization creates it on the HyperConverged `spec.storage.vmStateStorageClass`, or on the default StorageClass when that is unset. XFS cannot be formatted that small, so on an XFS filesystem class the VM stays in Scheduling (`format of disk ... failed ... data subvolume is too small`).
+
+The page checks this and, when the class formats volumes with XFS (`csi.storage.k8s.io/fstype: xfs`), shows a warning with the class to use instead (ext4 first, then the default virtualization class, then Ceph RBD; never object-bucket or static local classes). **Use <class> for VM state** patches the HyperConverged resource with your own console permissions; the equivalent `oc patch` command is shown for cluster admins. The check is skipped when you can't read the HyperConverged resource. A VM that was already stuck needs its `persistent-state-for-<vm>` PVC deleted and a restart after the change.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md): setup, `yarn verify`, testing on your own cluster, the project rules and what maintainers do at release.
