@@ -33,6 +33,17 @@ Validated on OpenShift **4.22** (PatternFly 6). Requires **OpenShift Virtualizat
 - **VMI watcher / `sawRunning` guard** — `waitVMI` polls up to 4h; `sawRunning` must be true before treating Succeeded/NotFound as exit (prevents stale-VMI races). `evaluateGuestExit` requires qemu-ga connection.
 - **Golden DV cloning** — after sysprep, clone install disk to `openshift-virtualization-os-images`; create/update DataSource and optional Template.
 
+## Pre-flight: VM state storage
+
+Windows 11 and other templates with a persistent TPM or EFI get a small (about 10 MiB) `persistent-state-for-<vm>` PVC, always in Filesystem mode. KubeVirt picks its class in this order: the HyperConverged `spec.storage.vmStateStorageClass`, then the default virtualization class (`storageclass.kubevirt.io/is-default-virt-class`), then the default class. XFS cannot be formatted that small, so on an XFS class the VM stays in Scheduling (`format of disk ... failed ... data subvolume is too small`).
+
+The page resolves the class the same way (all tied defaults are checked) and warns when it formats with XFS (`csi.storage.k8s.io/fstype: xfs`) and its StorageProfile has no `cdi.kubevirt.io/minimumSupportedPvcSize` of at least 300Mi. It offers two fixes, each with its `oc` command and, if you're allowed to make the change, a button that applies it with your own console permissions:
+
+- **Store VM state on another class:** one that can bind a Filesystem volume and formats small volumes (ext4 first, then CephFS, then NFS; object-bucket and static local classes are never offered).
+- **Keep the XFS class:** annotate its StorageProfile with `cdi.kubevirt.io/minimumSupportedPvcSize: 300Mi`, so each VM state volume is created at 300Mi.
+
+The check is skipped when you can't read the HyperConverged resource. A VM that never booted and is already stuck needs its `persistent-state-for-<vm>` PVC deleted and a restart after the fix; don't do that on a used VM, the volume holds its TPM (BitLocker keys) and EFI variables.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md): setup, `yarn verify`, testing on your own cluster, the project rules and what maintainers do at release.

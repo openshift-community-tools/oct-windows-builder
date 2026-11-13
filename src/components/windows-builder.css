@@ -196,3 +196,4 @@
   align-items: center;
   gap: var(--pf-t--global--spacer--sm, 8px);
 }
+.wb-vmstate-cmd { margin-top: var(--pf-t--global--spacer--sm); }

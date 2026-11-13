@@ -85,6 +85,7 @@ import {
 import dashboardLogger from '../utils/logger';
 import CommunityDisclaimer from './CommunityDisclaimer';
 import EditionTiles from './EditionTiles';
+import VmStateStorageCheck from './VmStateStorageCheck';
 import './windows-builder.css';
 
 const I18N = 'plugin__oct-windows-builder';
@@ -637,6 +638,12 @@ const WindowsBuilderPageInner: FC = () => {
           {builderUp === false ? (
             <StackItem>
               <Alert variant="warning" isInline title={t('Builder is not reachable. The windows-builder service must be running in oct-windows-builder.')} />
+            </StackItem>
+          ) : null}
+
+          {hasSc ? (
+            <StackItem>
+              <VmStateStorageCheck storageClasses={scList} storageClassesLoaded={Boolean(scLoaded)} />
             </StackItem>
           ) : null}
 
