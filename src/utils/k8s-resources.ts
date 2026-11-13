@@ -67,6 +67,17 @@ export const HyperConvergedModel: K8sModel = {
   namespaced: true,
 };
 
+export const StorageProfileModel: K8sModel = {
+  apiVersion: 'v1beta1',
+  apiGroup: 'cdi.kubevirt.io',
+  kind: 'StorageProfile',
+  abbr: 'SP',
+  label: 'StorageProfile',
+  labelPlural: 'StorageProfiles',
+  plural: 'storageprofiles',
+  namespaced: false,
+};
+
 export type HyperConvergedKind = K8sResourceCommon & {
   spec?: { storage?: { vmStateStorageClass?: string } };
 };

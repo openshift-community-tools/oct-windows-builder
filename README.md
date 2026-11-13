@@ -35,9 +35,14 @@ Validated on OpenShift **4.22** (PatternFly 6). Requires **OpenShift Virtualizat
 
 ## Pre-flight: VM state storage
 
-Windows 11 and other templates with a persistent TPM or EFI get a small (about 10 MiB) `persistent-state-for-<vm>` PVC. OpenShift Virtualization creates it on the HyperConverged `spec.storage.vmStateStorageClass`, or on the default StorageClass when that is unset. XFS cannot be formatted that small, so on an XFS filesystem class the VM stays in Scheduling (`format of disk ... failed ... data subvolume is too small`).
+Windows 11 and other templates with a persistent TPM or EFI get a small (about 10 MiB) `persistent-state-for-<vm>` PVC, always in Filesystem mode. KubeVirt picks its class in this order: the HyperConverged `spec.storage.vmStateStorageClass`, then the default virtualization class (`storageclass.kubevirt.io/is-default-virt-class`), then the default class. XFS cannot be formatted that small, so on an XFS class the VM stays in Scheduling (`format of disk ... failed ... data subvolume is too small`).
 
-The page checks this and, when the class formats volumes with XFS (`csi.storage.k8s.io/fstype: xfs`), shows a warning with the class to use instead (ext4 first, then the default virtualization class, then Ceph RBD; never object-bucket or static local classes). **Use <class> for VM state** patches the HyperConverged resource with your own console permissions; the equivalent `oc patch` command is shown for cluster admins. The check is skipped when you can't read the HyperConverged resource. A VM that was already stuck needs its `persistent-state-for-<vm>` PVC deleted and a restart after the change.
+The page resolves the class the same way (all tied defaults are checked) and warns when it formats with XFS (`csi.storage.k8s.io/fstype: xfs`) and its StorageProfile has no `cdi.kubevirt.io/minimumSupportedPvcSize` of at least 300Mi. It offers two fixes, each with its `oc` command and, if you're allowed to make the change, a button that applies it with your own console permissions:
+
+- **Store VM state on another class:** one that can bind a Filesystem volume and formats small volumes (ext4 first, then CephFS, then NFS; object-bucket and static local classes are never offered).
+- **Keep the XFS class:** annotate its StorageProfile with `cdi.kubevirt.io/minimumSupportedPvcSize: 300Mi`, so each VM state volume is created at 300Mi.
+
+The check is skipped when you can't read the HyperConverged resource. A VM that never booted and is already stuck needs its `persistent-state-for-<vm>` PVC deleted and a restart after the fix; don't do that on a used VM, the volume holds its TPM (BitLocker keys) and EFI variables.
 
 ## Contributing
 
