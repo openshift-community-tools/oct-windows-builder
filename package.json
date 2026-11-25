@@ -1,6 +1,6 @@
 {
   "name": "oct-windows-builder",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Community project. Windows Builder Console plugin. Not officially supported by Red Hat.",
   "private": true,
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
   },
   "consolePlugin": {
     "name": "oct-windows-builder",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "displayName": "Windows Builder",
     "description": "Community project. Build sysprepped Windows disks for OpenShift Virtualization. Not officially supported by Red Hat.",
     "exposedModules": {

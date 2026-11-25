@@ -9,8 +9,8 @@ This repository is the **Windows Builder** ConsolePlugin. It is **not** the OCT 
 | | Value |
 | --- | --- |
 | Plugin ID / ConsolePlugin / `package.json` `consolePlugin.name` | **`oct-windows-builder`** |
-| Image | `quay.io/<org>/oct-windows-builder:1.1.0-ocp4.22` (and `:1.1.0-ocp4.21`; `<semver>-ocp<major.minor>`) |
-| Builder image | `quay.io/<org>/oct-windows-builder-builder:1.1.0-ocp4.22` (and `:1.1.0-ocp4.21`) |
+| Image | `quay.io/<org>/oct-windows-builder:1.1.1-ocp4.22` (and `:1.1.1-ocp4.21`; `<semver>-ocp<major.minor>`) |
+| Builder image | `quay.io/<org>/oct-windows-builder-builder:1.1.1-ocp4.22` (and `:1.1.1-ocp4.21`) |
 | i18n | `plugin__oct-windows-builder` |
 | Route | `/community-tools/compute/windows-builder` |
 | Proxy | `/api/proxy/plugin/oct-windows-builder/windows-builder` |
@@ -18,7 +18,7 @@ This repository is the **Windows Builder** ConsolePlugin. It is **not** the OCT 
 
 Display name is **Windows Builder**. Hub is **Compute** (`category: compute`).
 
-**Current version:** `1.1.0` (package.json / consolePlugin.version).
+**Current version:** `1.1.1` (package.json / consolePlugin.version).
 
 ## Supported Windows editions
 
@@ -99,7 +99,7 @@ Do **not** mark a DataVolume Ready unless CDI `status.phase` is `Succeeded`.
 
 ## OpenShift and extension versions
 
-Two axes in the catalog: git tag **`v1.x.x`** (semver) and optional branch **`ocp-X.Y`** when PatternFly or APIs diverge. Image tags **always** `<semver>-ocp<major.minor>` (e.g. `1.1.0-ocp4.22`).
+Two axes in the catalog: git tag **`v1.x.x`** (semver) and optional branch **`ocp-X.Y`** when PatternFly or APIs diverge. Image tags **always** `<semver>-ocp<major.minor>` (e.g. `1.1.1-ocp4.22`).
 
 - Git: `main` tracks the newest supported minor (currently **4.22**).
 - PatternFly 6 on 4.22; do not mix PF majors on one branch.
@@ -127,7 +127,7 @@ The deploy bundle (`catalog/deploy/oct-windows-builder.yaml` in the storefront) 
 
 | Image | Current version | Quay repo |
 | --- | --- | --- |
-| `oct-windows-builder-builder` | **1.1.0** | `quay.io/openshift-community-tools/oct-windows-builder-builder` |
+| `oct-windows-builder-builder` | **1.1.1** | `quay.io/openshift-community-tools/oct-windows-builder-builder` |
 
 The builder version should match the plugin version. After rebuilding either image, update the deploy YAML in the storefront, rebuild the storefront image, and run `scripts/validate-catalog.sh`. See `oct-release-checklist.mdc`.
 
